@@ -1,9 +1,4 @@
-/* JS is only used for the contact form -> database. Everything else is plain HTML/CSS. */
-
-// ===== Edit these two lines with your database details =====
-const DATABASE_URL = "https://YOUR-PROJECT.supabase.co/rest/v1/requests"; // table that stores requests
-const API_KEY = "YOUR_PUBLIC_ANON_KEY"; // use the public (anon) key only, never a secret key
-
+/* Public site JS: only the contact form -> database. Settings live in config.js */
 const form = document.getElementById("contact-form");
 const status = document.getElementById("form-status");
 
@@ -20,7 +15,7 @@ form.addEventListener("submit", async (event) => {
 
   status.textContent = "Sending...";
   try {
-    const response = await fetch(DATABASE_URL, {
+    const response = await fetch(SUPABASE_URL + "/rest/v1/requests", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +23,11 @@ form.addEventListener("submit", async (event) => {
         "Authorization": "Bearer " + API_KEY,
         "Prefer": "return=minimal"
       },
-      body: JSON.stringify({ name: data.name, phone: data.phone, message: data.message })
+      body: JSON.stringify({
+        name: data.name.trim(),
+        phone: data.phone.trim(),
+        message: data.message.trim()
+      })
     });
     if (!response.ok) throw new Error("Request failed");
     form.reset();
