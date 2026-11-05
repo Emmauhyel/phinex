@@ -1,7 +1,7 @@
 # Phinex website
 
 Files: index.html (public page), admin.html (owner inbox), style.css, admin.css, script.js, admin.js,
-config.js (database settings), schema.sql (database), assets/ (logo and product images).
+config.js (database settings), theme.js (light/dark switch), schema.sql (database), assets/ (logo and product images).
 
 ## Setup (about 10 minutes)
 1. Create a free project at supabase.com.
