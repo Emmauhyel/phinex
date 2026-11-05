@@ -36,20 +36,79 @@
 
   <!-- Dashboard -->
   <section id="dash-view" hidden>
-    <div class="toolbar">
-      <h1>Customer requests <span id="count"></span></h1>
-      <div class="tools">
-        <select id="filter" aria-label="Filter by status">
-          <option value="all">All</option>
-          <option value="new">New</option>
-          <option value="contacted">Contacted</option>
-          <option value="closed">Closed</option>
-        </select>
-        <button class="btn btn-small btn-ghost" id="refresh">Refresh</button>
+    <nav class="tabs">
+      <button class="active" data-tab="requests">Requests <span id="count"></span></button>
+      <button data-tab="showroom">Showroom</button>
+    </nav>
+
+    <!-- Requests -->
+    <div id="tab-requests">
+      <div class="toolbar">
+        <h1>Customer requests</h1>
+        <div class="tools">
+          <select id="filter" aria-label="Filter by status">
+            <option value="all">All</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="closed">Closed</option>
+          </select>
+          <button class="btn btn-small btn-ghost" id="refresh">Refresh</button>
+        </div>
       </div>
+      <p class="msg" id="dash-msg" role="status"></p>
+      <div id="list" class="list"></div>
     </div>
-    <p class="msg" id="dash-msg" role="status"></p>
-    <div id="list" class="list"></div>
+
+    <!-- Showroom -->
+    <div id="tab-showroom" hidden>
+      <div class="toolbar">
+        <h1>Showroom <span id="pcount"></span></h1>
+        <div class="tools">
+          <button class="btn btn-small" id="add-device">Add device</button>
+          <button class="btn btn-small btn-ghost" id="hide-all">Hide all</button>
+        </div>
+      </div>
+
+      <form id="product-form" class="pform" hidden>
+        <h2 id="p-title">Add a device</h2>
+        <input type="hidden" id="p-id">
+        <input type="hidden" id="p-current-image">
+        <div class="grid">
+          <label>Name <input id="p-name" required maxlength="120" placeholder="iPhone 13 Pro"></label>
+          <label>Brand <input id="p-brand" maxlength="60" placeholder="Apple"></label>
+          <label>Type
+            <select id="p-category"><option value="phone">Phone</option><option value="tablet">Tablet</option></select>
+          </label>
+          <label>Show under
+            <select id="p-tag">
+              <option value="normal">Available (normal)</option>
+              <option value="friday_sale">Friday Sale</option>
+              <option value="flash_sale">Flash Sale</option>
+              <option value="fast_traders">Fast Traders</option>
+            </select>
+          </label>
+          <label>Condition
+            <select id="p-condition"><option value="">Not stated</option><option>New</option><option>UK Used</option><option>Refurbished</option></select>
+          </label>
+          <label>Storage <input id="p-storage" maxlength="40" placeholder="128GB"></label>
+          <label>Price (₦) <input id="p-price" type="number" min="0" step="any" required></label>
+          <label>Old price (₦), optional <input id="p-old" type="number" min="0" step="any"></label>
+        </div>
+        <label>Short note, optional <input id="p-desc" maxlength="300" placeholder="Battery health 92%, comes with charger"></label>
+        <label>Photo (JPG, PNG or WebP, up to 5MB) <input id="p-image" type="file" accept="image/jpeg,image/png,image/webp"></label>
+        <p class="msg" id="p-image-note"></p>
+        <label class="check"><input type="checkbox" id="p-instock" checked> In stock</label>
+        <label class="check"><input type="checkbox" id="p-published" checked> Show in the showroom now</label>
+        <div class="actions">
+          <button class="primary" type="submit">Save device</button>
+          <button type="button" id="p-cancel">Cancel</button>
+        </div>
+        <p class="msg" id="p-msg" role="status"></p>
+      </form>
+
+      <p class="msg" id="p-list-msg" role="status"></p>
+      <div id="plist" class="list"></div>
+    </div>
   </section>
 
 </main>
